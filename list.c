@@ -2,11 +2,14 @@
 #include <stdlib.h>
 #include "list.h"
 
-static ListNode front;
-static ListNode back;
+static ListNode *front;
+static ListNode *back;
 
 ListNode *listAdd(const char *name)
 {
+
+
+
 
 }
 /*Hängt einen neuen Eintrag mit dem übergebenen name
