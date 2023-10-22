@@ -36,7 +36,7 @@ ListNode *listAdd(const char *name)
     if(isListEmpty())
     {
         front = myNode;
-        back =  myNode;        /*myNode->next;*/
+        back =  myNode;        
         myNode->prev = NULL;
         myNode->next = NULL;
     }
@@ -46,7 +46,9 @@ ListNode *listAdd(const char *name)
         myNode->next = NULL;
         back = myNode;
     }
-    addNameToNodemyNode->name, name);
+    addNameToNode(myNode->name, name);
+    /*myNode->number = {'\0'}; //initialisierung auf leeren String*/
+    return myNode;
 }
 /*Hängt einen neuen Eintrag mit dem übergebenen name
 an das Ende der Liste. Die Telefonnummer wird auf den
