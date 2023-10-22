@@ -1,3 +1,10 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "list.h"
+
+static ListNode front;
+static ListNode back;
+
 ListNode *listAdd(const char *name)
 {
 
