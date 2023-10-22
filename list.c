@@ -1,16 +1,52 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
+#include <string.h>
+#include <stdbool.h>
 
-static ListNode *front;
-static ListNode *back;
+static ListNode *front = NULL;
+static ListNode *back = NULL;
+
+ListNode *allocateSpaceForListNode()
+{
+    ListNode *myNode = (ListNode *)malloc(sizeof(ListNode));
+    if (myNode == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+    return myNode;
+}
+
+void addNameToNode(const char *destName, const char *sourceName)
+{
+    strcpy(destName, sourceName);
+}
+
+bool isListEmpty()
+{
+    if(front == NULL)
+    {
+        return true;
+    }
+}
 
 ListNode *listAdd(const char *name)
 {
-
-
-
-
+    ListNode *myNode = allocateSpaceForListNode();
+    if(isListEmpty())
+    {
+        front = myNode;
+        back =  myNode;        /*myNode->next;*/
+        myNode->prev = NULL;
+        myNode->next = NULL;
+    }
+    if(!isListEmpty())
+    {
+        myNode->prev = back;
+        myNode->next = NULL;
+        back = myNode;
+    }
+    addNameToNodemyNode->name, name);
 }
 /*Hängt einen neuen Eintrag mit dem übergebenen name
 an das Ende der Liste. Die Telefonnummer wird auf den
