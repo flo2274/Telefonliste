@@ -57,13 +57,13 @@ einem Fehler wird zudem errno auf einen entsprechenden Wert gesetzt: EEXIST, fal
 dem übergebenen name existiert; oder ENOMEM,falls nicht
 genügend Speicher zur Verfügung steht.*/
 
-void listForEach(void (* func)(ListNode *myNode))
+void listForEach(void (* func)(ListNode *))
 {
     ListNode *temp = front;
     while(temp != NULL)
     {
-        func(myNode);
-        temp = myNode->next;
+        func(temp);
+        temp = temp->next;
     }
 }
 /*Iteriert über die komplette Liste und führt dabei die per
