@@ -16,7 +16,10 @@ ListNode *allocateSpaceForListNode()
     }
     return myNode;
 }
+void nameNotUsed(const char *name)
+{
 
+}
 void addNameToNode(const char *destName, const char *sourceName)
 {
     strcpy(destName, sourceName);
@@ -74,14 +77,29 @@ dadurch n Aufrufe von func. Durch diesen Mechanismus
 können beispielsweise alle Elemente der Liste auf der
 Konsole ausgegeben werden.*/
 
-checkIfNameMatch()
-{
 
-}
-int listRemoveByName(const char *name, 
+void checkIfNameMatch(ListNode *temp, const char *name)
 {
-    listForEach();
-    checkIfNameMatch()
+    if(strcmp(temp-> name, name) == true)
+    {
+        /*removeNode();*/
+    } 
+}
+void iterateList(const char *name)
+{
+    ListNode *temp = front;
+    while(temp != NULL)
+    {
+        checkIfNameMatch(temp, name);
+        temp = temp->next;
+        }
+}
+int listRemoveByName(const char *name)
+{
+ 
+    iterateList(name);
+    
+    
 }
 /*Löscht den Eintrag mit dem übergebenen name aus der
 Liste und gibt den Speicher für den Eintrag frei. Falls es

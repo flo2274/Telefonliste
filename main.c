@@ -110,7 +110,19 @@ int main(void)
 		switch(selection)
 		{
 			case 'N':
-				//TODO: handle command
+				char name[32];
+				const char msg[] = "Bitte Namen eingeben:";
+				prompt(msg, buffer, 32);
+				if(nameNotUsed(name) == true)
+				{
+					listAdd(name);
+				}
+					
+				/*Es wird zunächst der Name für den neuen Eintrag in der Liste abgefragt.
+				Anschließend wird ein neuer Eintrag in der Liste mit einer leeren Telefonnummer erzeugt. Falls
+				im Zuge dessen festgestellt wird, dass der Name bereits vergeben wurde, erscheint eine 
+				entsprechende Fehlermeldung und das Programm kehrt in das Menü zurück. Leere Namen sind ebenfalls
+				unzulässig. Danach wird die Telefonnummer abgefragt und in dem neuen Listeneintrag gespeichert.*/
 				break;
 			case 'L':
 				//TODO: handle command
