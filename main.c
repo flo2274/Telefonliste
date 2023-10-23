@@ -112,9 +112,11 @@ int main(void)
 		{
 			case 'N':
 				char buffer[32];
-				const char msg[] = "Bitte Namen eingeben:";
+				const char msg[] = "Bitte Namen eingeben";
 				prompt(msg, buffer, 32);
+				printf(" buffer speicher: [%s]", buffer);
 				const char *name = buffer;
+				printf(" name speicher: [%s]", name);
 				listAdd(name);
 				/*Es wird zunächst der Name für den neuen Eintrag in der Liste abgefragt.
 				Anschließend wird ein neuer Eintrag in der Liste mit einer leeren Telefonnummer erzeugt. Falls

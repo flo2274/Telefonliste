@@ -19,22 +19,30 @@ ListNode *allocateSpaceForListNode()
 }
 ListNode *compareName(ListNode *tmp, const char *name)
 {
-    if(strcmp(tmp->name, name) == true)
+    printf(" --compareName tmp %s, and name %s\n", tmp->name, name);
+    if(strcmp(tmp->name, name) == 0) //wenn strcmp 0 zurück liefert sind beide Werte identisch
     {
+        printf(" --return tmp %p\n", tmp);
         return tmp; //Falls Name vorhanden liefert return Zeiger auf die node wo der Name steht
     } 
     return NULL; //return NULL falls der Username nicht in der Liste ist
 }
 ListNode *userNameMatch(const char *name)
 {
+    printf("Testcase: %s\n", name);
     ListNode *tmp = front;
+    printf("--Front tmp: %p\n", tmp);
     ListNode *myNode = NULL;
+    printf(" --1tmp node ist: %p\n", tmp);
+    printf(" --2my node ist: %p\n", myNode);
     while(tmp != NULL && myNode == NULL) //tmp nicht null: liste noch nicht am Ende; myNode == Null: noch keinen gleichen Namen gefuden
     {
         myNode = compareName(tmp, name);
         tmp = tmp->next;
     }
-    return myNode;
+    printf(" --2tmp node ist: %p\n", tmp);
+    printf(" --2my node ist: %p\n", myNode);
+    return myNode; //wenn kein doppelter name gefunden wurde bleibt myNode NULL; sonst wird der pointer übergeben wo in der Liste der doppelte name gefunden wurde
 }
 bool userNameNotEmpty(const char *name)
 {
@@ -62,8 +70,10 @@ bool listEmpty()
 
 ListNode *listAdd(const char *name)
 {
+    printf("%s", name);
     if(userNameMatch(name) == NULL && userNameNotEmpty(name) == true)
     {   
+        printf(" user match: [%s]", name);
         ListNode *myNode = allocateSpaceForListNode();
         if(listEmpty())
         {
@@ -96,11 +106,11 @@ genügend Speicher zur Verfügung steht.*/
 
 void listForEach(void (* func)(ListNode *))
 {
-    ListNode *temp = front;
-    while(temp != NULL)
+    ListNode *tmp = front;
+    while(tmp != NULL)
     {
-        func(temp);
-        temp = temp->next;
+        func(tmp);
+        tmp = tmp->next;
     }
 }
 /*Iteriert über die komplette Liste und führt dabei die per
