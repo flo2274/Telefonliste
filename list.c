@@ -34,42 +34,52 @@ bool listEmpty()
     else{
         return false;
     }
-    
 }
-bool userNameMatch(const char *currentName, const char *searchedName)
+bool userNameMatch(char *currentName, const char *searchedName)
 {
+    printf("Betrete userNameMatch\n");
+    printf("Vergleiche %s mit %s\n", currentName, searchedName);
     if(strcmp(currentName, searchedName) == 0) //means they are equal
     {
+        printf("Username Doppelt\n");
         return true; //returns true if we have a username match
+    }
+    else{
+        printf("Username noch nicht vorhanden\n");
+        return false;
     }
     
 }
 bool validUserName(const char *name)
 {
-    printf("Betrete validUserName");
-    ListNode *current = front;
-    while(current != NULL)
-    {
-        if(userNameMatch(current->name, name) == true)  //nur wenn es einen usernamen schon gibt wird diese verzweigung betreten
+    printf("Betrete validUserName\n");
+    ListNode *current = front;  //----------------------------------------checken ob front konstant bleibt
+    while(current != NULL)  //--------------------------------------------checken ob current ausversehen bei betreten Null hat obwohl liste da sein sollte
+    {                       //--------------------------------------------------checken ob while und current richtig itterieren
+        if(userNameMatch(current->name, name) == true)  //------------------------current->name stimmt nicht (wird in userNameMatchnicht angezeigt)
         {
+            printf("return username not valid\n");
+            printf("had to be in userNameMatch\n");
             return false; //username not valid
         }
         current = current->next;
     }
+    printf("return username valid\n");
     return true;
 }
 bool userNameNotEmpty(const char *name)
 {
-    printf("Betrete userNameNotEmpty");
+    printf("Betrete userNameNotEmpty\n");
     while(*name)
     {
         if (!isspace((unsigned char)*name))
         {
+            printf("Normales Zeichen gefunden - verlasse userNameNotEmpty\n");
             return true; //true bestätigt, das ein normales Zeichen im String ist und nicht nur alles Leerzeichen sind bzw der string leer ist
         }
         name++;
     }
-    printf("String war leer - verlasse userNameNotEmpty");
+    printf("String war leer - verlasse userNameNotEmpty\n");
     return false; //String war leer
 }
 
@@ -97,7 +107,7 @@ ListNode *listAdd(const char *name)
         return myNode;
     }
     else{
-        printf("Name bereits vergeben oder ungültig");
+        printf("-  Name bereits vergeben oder ungültig\n");
         return NULL;
     }
 }
