@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "list.h"
 
 static int xgetchar(void)
 {
@@ -110,14 +111,11 @@ int main(void)
 		switch(selection)
 		{
 			case 'N':
-				char name[32];
+				char buffer[32];
 				const char msg[] = "Bitte Namen eingeben:";
-				prompt(msg, name, 32);
-				if(userNameMatch() == NULL) //Wenn userNameMatch NULL zurück liefert wurde der Name nicht in der Liste gefunden
-				{
-					listAdd(name);
-				}
-					
+				prompt(msg, buffer, 32);
+				const char *name = buffer;
+				listAdd(name);
 				/*Es wird zunächst der Name für den neuen Eintrag in der Liste abgefragt.
 				Anschließend wird ein neuer Eintrag in der Liste mit einer leeren Telefonnummer erzeugt. Falls
 				im Zuge dessen festgestellt wird, dass der Name bereits vergeben wurde, erscheint eine 

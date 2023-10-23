@@ -12,7 +12,7 @@ ListNode *allocateSpaceForListNode()
 {
     ListNode *myNode = (ListNode *)malloc(sizeof(ListNode));
     if (myNode == NULL) {
-        printf("Memory allocation failed\n");
+        printf("Speicher allocation fehlgeschlagen\n");
         return 0;
     }
     return myNode;
@@ -47,7 +47,7 @@ bool userNameNotEmpty(const char *name)
     }
     return false;
 }
-void addNameToNode(const char *destName, const char *sourceName)
+void addNameToNode(char *destName, const char *sourceName)
 {
     strcpy(destName, sourceName);
 }
@@ -72,14 +72,14 @@ ListNode *listAdd(const char *name)
             myNode->prev = NULL;
             myNode->next = NULL;
         }
-        if(!istEmpty())
+        if(!listEmpty())
         {
             myNode->prev = back;
             myNode->next = NULL;
             back = myNode;
         }
         addNameToNode(myNode->name, name);
-        myNode->number = {'\0'}; //Initialisierung auf leeren String*/
+        myNode->number[0] = '\0'; //Initialisierung auf leeren String*/ Achtung nicht "\0"
         return myNode;
     }
     else{
