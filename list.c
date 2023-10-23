@@ -12,7 +12,7 @@ ListNode *allocateSpaceForListNode()
     ListNode *myNode = (ListNode *)malloc(sizeof(ListNode));
     if (myNode == NULL) {
         printf("Memory allocation failed\n");
-        return 1;
+        return 0;
     }
     return myNode;
 }
@@ -47,7 +47,7 @@ ListNode *listAdd(const char *name)
         back = myNode;
     }
     addNameToNode(myNode->name, name);
-    /*myNode->number = {'\0'}; //initialisierung auf leeren String*/
+    myNode->number = {'\0'}; //initialisierung auf leeren String*/
     return myNode;
 }
 /*Hängt einen neuen Eintrag mit dem übergebenen name
@@ -57,9 +57,14 @@ einem Fehler wird zudem errno auf einen entsprechenden Wert gesetzt: EEXIST, fal
 dem übergebenen name existiert; oder ENOMEM,falls nicht
 genügend Speicher zur Verfügung steht.*/
 
-void listForEach(void (* func)(ListNode *))
+void listForEach(void (* func)(ListNode *myNode))
 {
-
+    ListNode *temp = front;
+    while(temp != NULL)
+    {
+        func(myNode);
+        temp = myNode->next;
+    }
 }
 /*Iteriert über die komplette Liste und führt dabei die per
 Zeiger func übergebene Funktion für jeden Eintrag in der
@@ -69,9 +74,14 @@ dadurch n Aufrufe von func. Durch diesen Mechanismus
 können beispielsweise alle Elemente der Liste auf der
 Konsole ausgegeben werden.*/
 
-int listRemoveByName(const char *name)
+checkIfNameMatch()
 {
 
+}
+int listRemoveByName(const char *name, 
+{
+    listForEach();
+    checkIfNameMatch()
 }
 /*Löscht den Eintrag mit dem übergebenen name aus der
 Liste und gibt den Speicher für den Eintrag frei. Falls es
