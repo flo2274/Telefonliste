@@ -17,47 +17,12 @@ ListNode *allocateSpaceForListNode()
     }
     return myNode;
 }
-ListNode *compareName(ListNode *tmp, const char *name)
+
+
+
+void addNameToNode(ListNode *myNode, const char *name)
 {
-    printf(" --compareName tmp %s, and name %s\n", tmp->name, name);
-    if(strcmp(tmp->name, name) == 0) //wenn strcmp 0 zurück liefert sind beide Werte identisch
-    {
-        printf(" --return tmp %p\n", tmp);
-        return tmp; //Falls Name vorhanden liefert return Zeiger auf die node wo der Name steht
-    } 
-    return NULL; //return NULL falls der Username nicht in der Liste ist
-}
-ListNode *userNameMatch(const char *name)
-{
-    printf("Testcase: %s\n", name);
-    ListNode *tmp = front;
-    printf("--Front tmp: %p\n", tmp);
-    ListNode *myNode = NULL;
-    printf(" --1tmp node ist: %p\n", tmp);
-    printf(" --2my node ist: %p\n", myNode);
-    while(tmp != NULL && myNode == NULL) //tmp nicht null: liste noch nicht am Ende; myNode == Null: noch keinen gleichen Namen gefuden
-    {
-        myNode = compareName(tmp, name);
-        tmp = tmp->next;
-    }
-    printf(" --2tmp node ist: %p\n", tmp);
-    printf(" --2my node ist: %p\n", myNode);
-    return myNode; //wenn kein doppelter name gefunden wurde bleibt myNode NULL; sonst wird der pointer übergeben wo in der Liste der doppelte name gefunden wurde
-}
-bool userNameNotEmpty(const char *name)
-{
-    while (*name)           //Schleife wird solange ausgeführt wird, wie der aktuelle Zeiger name nicht auf das Nullzeichen ('\0') zeigt
-    {
-        if (!isspace((unsigned char)*name)) { //überprüft, ob das aktuelle Zeichen im String input ein nicht-Leerzeichen-Zeichen ist (einschließlich Tabulatorzeichen, Zeilenumbrüche usw.)
-            return true; // Der String enthält mindestens ein nicht-Leerzeichen-Zeichen
-        }
-        name++;
-    }
-    return false;
-}
-void addNameToNode(char *destName, const char *sourceName)
-{
-    strcpy(destName, sourceName);
+    strcmp(myNode->name, name);
 }
 
 bool listEmpty()
@@ -66,19 +31,58 @@ bool listEmpty()
     {
         return true;
     }
+    else{
+        return false;
+    }
+    
+}
+bool userNameMatch(const char *currentName, const char *searchedName)
+{
+    if(strcmp(currentName, searchedName) == 0) //means they are equal
+    {
+        return true; //returns true if we have a username match
+    }
+    
+}
+bool validUserName(const char *name)
+{
+    printf("Betrete validUserName");
+    ListNode *current = front;
+    while(current != NULL)
+    {
+        if(userNameMatch(current->name, name) == true)  //nur wenn es einen usernamen schon gibt wird diese verzweigung betreten
+        {
+            return false; //username not valid
+        }
+        current = current->next;
+    }
+    return true;
+}
+bool userNameNotEmpty(const char *name)
+{
+    printf("Betrete userNameNotEmpty");
+    while(*name)
+    {
+        if (!isspace((unsigned char)*name))
+        {
+            return true; //true bestätigt, das ein normales Zeichen im String ist und nicht nur alles Leerzeichen sind bzw der string leer ist
+        }
+        name++;
+    }
+    printf("String war leer - verlasse userNameNotEmpty");
+    return false; //String war leer
 }
 
 ListNode *listAdd(const char *name)
 {
-    printf("%s", name);
-    if(userNameMatch(name) == NULL && userNameNotEmpty(name) == true)
+    if(validUserName(name) == true && userNameNotEmpty(name) == true)
     {   
-        printf(" user match: [%s]", name);
         ListNode *myNode = allocateSpaceForListNode();
+        printf("Address of allocated Node: [%s] is [%p]\n", name, myNode);
         if(listEmpty())
         {
             front = myNode;
-            back =  myNode;        
+            back =  myNode;    
             myNode->prev = NULL;
             myNode->next = NULL;
         }
@@ -88,7 +92,7 @@ ListNode *listAdd(const char *name)
             myNode->next = NULL;
             back = myNode;
         }
-        addNameToNode(myNode->name, name);
+        addNameToNode(myNode, name);
         myNode->number[0] = '\0'; //Initialisierung auf leeren String*/ Achtung nicht "\0"
         return myNode;
     }
@@ -125,8 +129,8 @@ Konsole ausgegeben werden.*/
 
 int listRemoveByName(const char *name)
 {
-    ListNode *myNode = userNameMatch(name);
-    //todo: remove myNode
+    
+   
     
     
     
