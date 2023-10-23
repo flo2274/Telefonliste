@@ -35,6 +35,7 @@ bool isListEmpty()
 
 ListNode *listAdd(const char *name)
 {
+    if(nameNotUsed(name) && 
     ListNode *myNode = allocateSpaceForListNode();
     if(isListEmpty())
     {
@@ -78,26 +79,30 @@ können beispielsweise alle Elemente der Liste auf der
 Konsole ausgegeben werden.*/
 
 
-void checkIfNameMatch(ListNode *temp, const char *name)
+ListNode *compareName(ListNode *tmp, const char *name)
 {
-    if(strcmp(temp-> name, name) == true)
+    if(strcmp(tmp->name, name) == true)
     {
-        /*removeNode();*/
+        return tmp; //Falls Name vorhanden liefert return Zeiger auf die node wo der Name steht
     } 
+    return NULL; //return NULL falls der Username nicht in der Liste ist
 }
-void iterateList(const char *name)
+ListNode *userNameMatch(const char *name)
 {
-    ListNode *temp = front;
-    while(temp != NULL)
+    ListNode *tmp = front;
+    ListNode *myNode = NULL;
+    while(tmp != NULL && myNode == NULL) //tmp nicht null: liste noch nicht am Ende; myNode == Null: noch keinen gleichen Namen gefuden
     {
-        checkIfNameMatch(temp, name);
-        temp = temp->next;
-        }
+        myNode = compareName(tmp, name);
+        tmp = tmp->next;
+    }
+    return myNode;
 }
 int listRemoveByName(const char *name)
 {
- 
-    iterateList(name);
+    ListNode *myNode = userNameMatch(name);
+    //todo: remove myNode
+    
     
     
 }

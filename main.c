@@ -112,8 +112,8 @@ int main(void)
 			case 'N':
 				char name[32];
 				const char msg[] = "Bitte Namen eingeben:";
-				prompt(msg, buffer, 32);
-				if(nameNotUsed(name) == true)
+				prompt(msg, name, 32);
+				if(userNameMatch() == NULL) //Wenn userNameMatch NULL zurück liefert wurde der Name nicht in der Liste gefunden
 				{
 					listAdd(name);
 				}
