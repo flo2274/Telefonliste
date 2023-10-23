@@ -3,6 +3,7 @@
 #include "list.h"
 #include <string.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 static ListNode *front = NULL;
 static ListNode *back = NULL;
@@ -16,16 +17,42 @@ ListNode *allocateSpaceForListNode()
     }
     return myNode;
 }
-void nameNotUsed(const char *name)
+ListNode *compareName(ListNode *tmp, const char *name)
 {
-
+    if(strcmp(tmp->name, name) == true)
+    {
+        return tmp; //Falls Name vorhanden liefert return Zeiger auf die node wo der Name steht
+    } 
+    return NULL; //return NULL falls der Username nicht in der Liste ist
+}
+ListNode *userNameMatch(const char *name)
+{
+    ListNode *tmp = front;
+    ListNode *myNode = NULL;
+    while(tmp != NULL && myNode == NULL) //tmp nicht null: liste noch nicht am Ende; myNode == Null: noch keinen gleichen Namen gefuden
+    {
+        myNode = compareName(tmp, name);
+        tmp = tmp->next;
+    }
+    return myNode;
+}
+bool userNameNotEmpty(const char *name)
+{
+    while (*name)           //Schleife wird solange ausgeführt wird, wie der aktuelle Zeiger name nicht auf das Nullzeichen ('\0') zeigt
+    {
+        if (!isspace((unsigned char)*name)) { //überprüft, ob das aktuelle Zeichen im String input ein nicht-Leerzeichen-Zeichen ist (einschließlich Tabulatorzeichen, Zeilenumbrüche usw.)
+            return true; // Der String enthält mindestens ein nicht-Leerzeichen-Zeichen
+        }
+        name++;
+    }
+    return false;
 }
 void addNameToNode(const char *destName, const char *sourceName)
 {
     strcpy(destName, sourceName);
 }
 
-bool isListEmpty()
+bool listEmpty()
 {
     if(front == NULL)
     {
@@ -35,24 +62,30 @@ bool isListEmpty()
 
 ListNode *listAdd(const char *name)
 {
-    if(nameNotUsed(name) && 
-    ListNode *myNode = allocateSpaceForListNode();
-    if(isListEmpty())
-    {
-        front = myNode;
-        back =  myNode;        
-        myNode->prev = NULL;
-        myNode->next = NULL;
+    if(userNameMatch(name) == NULL && userNameNotEmpty(name) == true)
+    {   
+        ListNode *myNode = allocateSpaceForListNode();
+        if(listEmpty())
+        {
+            front = myNode;
+            back =  myNode;        
+            myNode->prev = NULL;
+            myNode->next = NULL;
+        }
+        if(!istEmpty())
+        {
+            myNode->prev = back;
+            myNode->next = NULL;
+            back = myNode;
+        }
+        addNameToNode(myNode->name, name);
+        myNode->number = {'\0'}; //Initialisierung auf leeren String*/
+        return myNode;
     }
-    if(!isListEmpty())
-    {
-        myNode->prev = back;
-        myNode->next = NULL;
-        back = myNode;
+    else{
+        printf("Name bereits vergeben oder ungültig");
+        return NULL;
     }
-    addNameToNode(myNode->name, name);
-    myNode->number = {'\0'}; //initialisierung auf leeren String*/
-    return myNode;
 }
 /*Hängt einen neuen Eintrag mit dem übergebenen name
 an das Ende der Liste. Die Telefonnummer wird auf den
@@ -79,25 +112,7 @@ können beispielsweise alle Elemente der Liste auf der
 Konsole ausgegeben werden.*/
 
 
-ListNode *compareName(ListNode *tmp, const char *name)
-{
-    if(strcmp(tmp->name, name) == true)
-    {
-        return tmp; //Falls Name vorhanden liefert return Zeiger auf die node wo der Name steht
-    } 
-    return NULL; //return NULL falls der Username nicht in der Liste ist
-}
-ListNode *userNameMatch(const char *name)
-{
-    ListNode *tmp = front;
-    ListNode *myNode = NULL;
-    while(tmp != NULL && myNode == NULL) //tmp nicht null: liste noch nicht am Ende; myNode == Null: noch keinen gleichen Namen gefuden
-    {
-        myNode = compareName(tmp, name);
-        tmp = tmp->next;
-    }
-    return myNode;
-}
+
 int listRemoveByName(const char *name)
 {
     ListNode *myNode = userNameMatch(name);
