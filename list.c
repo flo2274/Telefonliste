@@ -124,39 +124,104 @@ Liste aus. Dabei wird in jedem Iterationsschritt ein Zeiger auf das jeweilige Li
 dadurch n Aufrufe von func. Durch diesen Mechanismus
 können beispielsweise alle Elemente der Liste auf der
 Konsole ausgegeben werden.*/
-void searchUserName(const char *name)
+bool isOnlyNode(ListNode *current)
 {
+    if(current == front && current == back)
+    {
+        return true;     
+    }
+    else
+    {
+        return false;
+    }
+}
+bool isFirstNode(ListNode *current)
+{
+    if(current == front && current != back)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+bool isMiddleNode(ListNode *current)
+{
+    if(current != front && current != back)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+bool isLastNode(ListNode *current)
+{
+    if(current != front && current == back)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+void removeNode(ListNode *current)
+{
+    printf("removeNode betreten: %s\n", current->name);
+    bool access = true; //Es darf nur ein Node removed werden; to prevent unwanted if case access
+    ListNode *tmp = current->next;
+    if(isOnlyNode(current) == true && access == true)
+    {
+        printf("isOnlyNode betreten:");
+        front = NULL; //-------------------------------------check pointer initialisation for all
+        back = NULL;
+        access = false;
+    }
+    if(isFirstNode(current) == true && access == true)
+    {
+        printf("isFirstNode betreten: %s\n", current->name);
+        front = current->next;
+        current->next->prev = NULL;
+        access = false;
+    }
+    if(isMiddleNode(current) == true && access == true)
+    {
+        printf("isMiddleNode betreten: %s\n", current->name);
+        current->next->next->prev = current; //grün
+        current->next = current->next->next; //blau
+        access = false;
+    }
+    if(isLastNode(current) == true && access == true)
+    {
+        printf("isLastNode betreten: %s\n", current->name);
+        current->prev->next = NULL;
+        back = current->prev;
+        access = false;
+    }
+    free(tmp);
+}
+ListNode *searchUserName(const char *name)
+{
+    printf("searchUserName betreten: %s\n", name);
     ListNode *current = front;  
     while(current != NULL) 
     {                   
         if(userNameMatch(current->name, name) == true)
         {
-            //removeNode(current);
+            return current;
         }
         current = current->next;
     }
 }
-/*void removeNode(ListNode *current)
-{
-    if(isFirstNode)
-    {
-
-    }
-    if(isMiddleNode)
-    {
-        ListNode *tmp = current->next;
-        current->next->next->prev = current; //grün
-        current->next = current->next->next; //blau
-        free(tmp);
-    }
-    if(isLastNode)
-    {
-        
-    }
-}*/
 int listRemoveByName(const char *name)
 {
-    searchUserName(name);
+    
+    printf("listRemoveByName betreten: %s\n", name);
+    ListNode *userToBeRemoved = searchUserName(name);
+    removeNode(userToBeRemoved);
     
 
 }

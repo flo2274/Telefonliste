@@ -128,7 +128,13 @@ int main(void)
 				listForEach(printNode);
 				break;
 			case 'R':
-				//TODO: handle command
+				printf("msg: %s\n", msg);
+				prompt(msg, buffer, 32);
+				//const char *name = buffer;
+				printf("Buffer: %s\n", buffer);
+				printf("name: %s\n", name);
+
+				listRemoveByName(name);
 				break;
 			case 'E':
 				puts("Programm wird beendet.");
