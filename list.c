@@ -22,7 +22,8 @@ ListNode *allocateSpaceForListNode()
 
 void addNameToNode(ListNode *myNode, const char *name)
 {
-    strcmp(myNode->name, name);
+    strcpy(myNode->name, name);
+    printf("What is current name:%s\n", myNode->name);
 }
 
 bool listEmpty()
@@ -39,6 +40,7 @@ bool userNameMatch(char *currentName, const char *searchedName)
 {
     printf("Betrete userNameMatch\n");
     printf("Vergleiche %s mit %s\n", currentName, searchedName);
+    printf("Adresse von currentName: %p, und name: %p\n", currentName, searchedName);
     if(strcmp(currentName, searchedName) == 0) //means they are equal
     {
         printf("Username Doppelt\n");
@@ -54,15 +56,20 @@ bool validUserName(const char *name)
 {
     printf("Betrete validUserName\n");
     ListNode *current = front;  //----------------------------------------checken ob front konstant bleibt
+    printf("What is current name:%s\n", current->name);
     while(current != NULL)  //--------------------------------------------checken ob current ausversehen bei betreten Null hat obwohl liste da sein sollte
-    {                       //--------------------------------------------------checken ob while und current richtig itterieren
+    {                       //--------------------------------------------------checken ob while und current richtig iterieren
+        printf("What is current adress:%p\n", current);
+        printf("What is current name:%s\n", current->name);
         if(userNameMatch(current->name, name) == true)  //------------------------current->name stimmt nicht (wird in userNameMatchnicht angezeigt)
         {
             printf("return username not valid\n");
             printf("had to be in userNameMatch\n");
             return false; //username not valid
         }
+        printf("Adresse von current bisher: %p\n", current);
         current = current->next;
+        printf("Adresse von current nach next: %p\n", current);
     }
     printf("return username valid\n");
     return true;
@@ -84,23 +91,30 @@ bool userNameNotEmpty(const char *name)
 }
 
 ListNode *listAdd(const char *name)
-{
+{   
+    printf("listAdd name:%s\n", name);
     if(validUserName(name) == true && userNameNotEmpty(name) == true)
     {   
         ListNode *myNode = allocateSpaceForListNode();
         printf("Address of allocated Node: [%s] is [%p]\n", name, myNode);
         if(listEmpty())
         {
+            printf("List empty:\n");
             front = myNode;
             back =  myNode;    
             myNode->prev = NULL;
             myNode->next = NULL;
         }
-        if(!listEmpty())
+        else
         {
+            back->next = myNode;
+            printf("back->next: %p\n", back->next);
             myNode->prev = back;
+            printf("myNode->prev->next: %p\n", myNode->prev->next);
             myNode->next = NULL;
             back = myNode;
+            printf("myNode->prev: %p\n", myNode->prev );
+            printf("myNode->next: %p\n", myNode->next );
         }
         addNameToNode(myNode, name);
         myNode->number[0] = '\0'; //Initialisierung auf leeren String*/ Achtung nicht "\0"
