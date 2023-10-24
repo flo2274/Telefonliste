@@ -95,9 +95,11 @@ static void prompt(const char *msg, char *buffer, size_t size)
 	}
 }
 
-/*
- * TODO: Add static helper functions as needed.
- */
+void printNode(ListNode *current)
+{
+    printf("- Name   :%s\n", current->name);
+    printf("- Nummer :%s\n\n", current->number);
+}
 
 int main(void)
 {
@@ -123,7 +125,7 @@ int main(void)
 				unzulässig. Danach wird die Telefonnummer abgefragt und in dem neuen Listeneintrag gespeichert.*/
 				break;
 			case 'L':
-				//TODO: handle command
+				listForEach(printNode);
 				break;
 			case 'R':
 				//TODO: handle command
