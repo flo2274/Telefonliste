@@ -114,6 +114,7 @@ void listForEach(void (* func)(ListNode *)) //übergabeparameter ist eine functi
     while(current != NULL)
     {
         func(current);
+        printf("current address: %p", current);
         current = current->next;
     }
 }
@@ -176,22 +177,23 @@ void removeNode(ListNode *current)
     if(isOnlyNode(current) == true && access == true)
     {
         printf("isOnlyNode betreten:");
-        front = NULL; //-------------------------------------check pointer initialisation for all
+        front = NULL; 
         back = NULL;
         access = false;
     }
-    if(isFirstNode(current) == true && access == true)
+    if(isFirstNode(current) == true && access == true)//-------------------------------------check pointer initialisation
     {
         printf("isFirstNode betreten: %s\n", current->name);
         front = current->next;
         current->next->prev = NULL;
+        printf("front: %p", front);
         access = false;
     }
-    if(isMiddleNode(current) == true && access == true)
+    if(isMiddleNode(current) == true && access == true)//-------------------------------------check pointer initialisation
     {
         printf("isMiddleNode betreten: %s\n", current->name);
-        current->next->next->prev = current; //grün
-        current->next = current->next->next; //blau
+        current->next->prev = current->prev;
+        current->prev->next = current->next,
         access = false;
     }
     if(isLastNode(current) == true && access == true)
@@ -220,8 +222,7 @@ int listRemoveByName(const char *name)
 {
     
     printf("listRemoveByName betreten: %s\n", name);
-    ListNode *userToBeRemoved = searchUserName(name);
-    removeNode(userToBeRemoved);
+    removeNode(searchUserName(name));
     
 
 }
