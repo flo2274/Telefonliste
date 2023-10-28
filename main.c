@@ -132,6 +132,7 @@ int main(void)
 				listRemoveByName(name);
 				break;
 			case 'E':
+				listRemoveAll();
 				puts("Programm wird beendet.");
 				running = false;
 				break;

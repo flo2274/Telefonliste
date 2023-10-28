@@ -114,7 +114,6 @@ void listForEach(void (* func)(ListNode *)) //übergabeparameter ist eine functi
     while(current != NULL)
     {
         func(current);
-        printf("current address: %p", current);
         current = current->next;
     }
 }
@@ -171,36 +170,30 @@ bool isLastNode(ListNode *current)
 }
 void removeNode(ListNode *current)
 {
-    printf("removeNode betreten: %s\n", current->name);
     bool access = true; //Es darf nur ein Node removed werden; to prevent unwanted if case access
     ListNode *tmp = current;
     if(isOnlyNode(current) == true && access == true)
     {
-        printf("isOnlyNode betreten:");
         front = NULL; 
         back = NULL;
         access = false;
     }
     if(isFirstNode(current) == true && access == true)//-------------------------------------check pointer initialisation
     {
-        printf("isFirstNode betreten: %s\n", current->name);
-        
-        current->next->prev = NULL;
         front = current->next;
-        printf("front: %p", front);
+        current->next->prev = NULL;
         access = false;
     }
     if(isMiddleNode(current) == true && access == true)//-------------------------------------check pointer initialisation
     {
-        printf("isMiddleNode betreten: %s\n", current->name);
-        current->prev->next = current->next;
         current->next->prev = current->prev;
+        current->prev->next = current->next;
+        
         
         access = false;
     }
     if(isLastNode(current) == true && access == true)
     {
-        printf("isLastNode betreten: %s\n", current->name);
         current->prev->next = NULL;
         back = current->prev;
         access = false;
@@ -209,7 +202,6 @@ void removeNode(ListNode *current)
 }
 ListNode *searchUserName(const char *name)
 {
-    printf("searchUserName betreten: %s\n", name);
     ListNode *current = front;  
     while(current != NULL) 
     {                   
@@ -222,11 +214,7 @@ ListNode *searchUserName(const char *name)
 }
 int listRemoveByName(const char *name)
 {
-    
-    printf("listRemoveByName betreten: %s\n", name);
     removeNode(searchUserName(name));
-    
-
 }
 /*Löscht den Eintrag mit dem übergebenen name aus der
 Liste und gibt den Speicher für den Eintrag frei. Falls es
@@ -236,7 +224,7 @@ errno auf ENOENT gesetzt und -1 zurückgegeben. Im Erfolgsfall ist der Rückgabe
 
 void listRemoveAll(void)
 {
-
+    listForEach(removeNode);
 }
 /*Löscht alle Einträge aus der Liste. Diese Funktion wird
 beim Beenden des Programms aufgerufen, um den kompletten Speicher für die Liste wieder freizugeben.*/
