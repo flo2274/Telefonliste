@@ -173,7 +173,7 @@ void removeNode(ListNode *current)
 {
     printf("removeNode betreten: %s\n", current->name);
     bool access = true; //Es darf nur ein Node removed werden; to prevent unwanted if case access
-    ListNode *tmp = current->next;
+    ListNode *tmp = current;
     if(isOnlyNode(current) == true && access == true)
     {
         printf("isOnlyNode betreten:");
@@ -184,16 +184,18 @@ void removeNode(ListNode *current)
     if(isFirstNode(current) == true && access == true)//-------------------------------------check pointer initialisation
     {
         printf("isFirstNode betreten: %s\n", current->name);
-        front = current->next;
+        
         current->next->prev = NULL;
+        front = current->next;
         printf("front: %p", front);
         access = false;
     }
     if(isMiddleNode(current) == true && access == true)//-------------------------------------check pointer initialisation
     {
         printf("isMiddleNode betreten: %s\n", current->name);
+        current->prev->next = current->next;
         current->next->prev = current->prev;
-        current->prev->next = current->next,
+        
         access = false;
     }
     if(isLastNode(current) == true && access == true)
