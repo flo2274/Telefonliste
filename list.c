@@ -68,13 +68,11 @@ bool userNameNotEmpty(const char *name)
     }
     return false; //String war leer
 }
-
 ListNode *listAdd(const char *name)
 {   
     if(validUserName(name) == true && userNameNotEmpty(name) == true)
     {   
         ListNode *myNode = allocateSpaceForListNode();
-        printf("Address of allocated Node: [%s] is [%p]\n", name, myNode);
         if(listEmpty())
         {
             front = myNode;
@@ -86,11 +84,8 @@ ListNode *listAdd(const char *name)
         {
             back->next = myNode;
             myNode->prev = back;
-            printf("myNode->prev->next: %p\n", myNode->prev->next);
             myNode->next = NULL;
             back = myNode;
-            printf("myNode->prev: %p\n", myNode->prev );
-            printf("myNode->next: %p\n", myNode->next );
         }
         addNameToNode(myNode, name);
         myNode->number[0] = '\0'; //Initialisierung auf leeren String*/ Achtung nicht "\0"
@@ -107,7 +102,6 @@ leeren String initialisiert. Gibt einen Zeiger auf den neuen Eintrag in der List
 einem Fehler wird zudem errno auf einen entsprechenden Wert gesetzt: EEXIST, falls der schon ein Eintrag mit
 dem übergebenen name existiert; oder ENOMEM,falls nicht
 genügend Speicher zur Verfügung steht.*/
-
 void listForEach(void (* func)(ListNode *)) //übergabeparameter ist eine function mit dem Parameter ListNode * und ohne Rückgabewert 
 {
     ListNode *current = front;
@@ -219,7 +213,6 @@ Liste und gibt den Speicher für den Eintrag frei. Falls es
 keinen Eintrag mit dem übergebenen Namen gibt, wird
 errno auf ENOENT gesetzt und -1 zurückgegeben. Im Erfolgsfall ist der Rückgabewert 0.
 */
-
 void listRemoveAll(void)
 {
     listForEach(removeNode);
