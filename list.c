@@ -178,18 +178,16 @@ void removeNode(ListNode *current)
         back = NULL;
         access = false;
     }
-    if(isFirstNode(current) == true && access == true)//-------------------------------------check pointer initialisation
+    if(isFirstNode(current) == true && access == true)
     {
         front = current->next;
         current->next->prev = NULL;
         access = false;
     }
-    if(isMiddleNode(current) == true && access == true)//-------------------------------------check pointer initialisation
+    if(isMiddleNode(current) == true && access == true)
     {
         current->next->prev = current->prev;
         current->prev->next = current->next;
-        
-        
         access = false;
     }
     if(isLastNode(current) == true && access == true)
