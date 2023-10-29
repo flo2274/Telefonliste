@@ -20,7 +20,6 @@ ListNode *allocateSpaceForListNode()
 void addNameToNode(ListNode *myNode, const char *name)
 {
     strcpy(myNode->name, name);
-    printf("What is current name:%s\n", myNode->name);
 }
 bool listEmpty()
 {

@@ -97,8 +97,8 @@ static void prompt(const char *msg, char *buffer, size_t size)
 
 void printNode(ListNode *current)
 {
-    printf("- Name   :%s\n", current->name);
-    printf("- Nummer :%s\n\n", current->number);
+    printf("\n- Name   :%s\n", current->name);
+    printf("- Nummer :%s\n", current->number);
 }
 
 int main(void)
@@ -125,6 +125,7 @@ int main(void)
 				unzulässig. Danach wird die Telefonnummer abgefragt und in dem neuen Listeneintrag gespeichert.*/
 				break;
 			case 'L':
+				printf("\nAusgabe der Liste:");
 				listForEach(printNode);
 				break;
 			case 'R':
