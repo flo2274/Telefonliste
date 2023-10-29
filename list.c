@@ -105,10 +105,12 @@ genügend Speicher zur Verfügung steht.*/
 void listForEach(void (* func)(ListNode *)) //übergabeparameter ist eine function mit dem Parameter ListNode * und ohne Rückgabewert 
 {
     ListNode *current = front;
+    ListNode *next;
     while(current != NULL)
     {
+        next = current->next;
         func(current);
-        current = current->next;
+        current = next;
     }
 }
 /*Iteriert über die komplette Liste und führt dabei die per
