@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <errno.h>
 
 static ListNode *front = NULL;
 static ListNode *back = NULL;
@@ -12,7 +13,8 @@ ListNode *allocateSpaceForListNode()
 {
     ListNode *myNode = (ListNode *)malloc(sizeof(ListNode));
     if (myNode == NULL) {
-        printf("Speicher allocation fehlgeschlagen\n");
+        errno = ENOMEM;
+        perror("Fehler");
         return 0;
     }
     return myNode;
@@ -91,7 +93,8 @@ ListNode *listAdd(const char *name)
         return myNode;
     }
     else{
-        printf("Name bereits vergeben oder ungültig\n");
+        errno = EEXIST;
+        perror("Fehler");
         return NULL;
     }
 }
@@ -204,10 +207,23 @@ ListNode *searchUserName(const char *name)
         }
         current = current->next;
     }
+    return NULL;
 }
 int listRemoveByName(const char *name)
 {
-    removeNode(searchUserName(name));
+    ListNode *userName = searchUserName(name);
+    if(userName == NULL)
+    {
+        errno = ENOENT;
+        perror("Fehler");
+        return -1;
+    }
+    else
+    {
+        removeNode(userName);
+        return 0;
+    }
+    
 }
 /*Löscht den Eintrag mit dem übergebenen name aus der
 Liste und gibt den Speicher für den Eintrag frei. Falls es
